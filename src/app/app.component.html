@@ -6,20 +6,7 @@
         <span class="title">Personal Inflation Calculator</span>
       </a>
     </div>
-    <!-- <div class="header-nav">
-    <a href="javascript://" class="active nav-link nav-text">Dashboard</a>
-    <a href="javascript://" class="nav-link nav-text">Interactive Analytics</a>
-  </div>
-  <div class="header-actions">
-    <a href="javascript://" class="nav-link nav-icon" aria-label="settings">
-      <cds-icon shape="cog"></cds-icon>
-    </a>
-  </div> -->
   </header>
-  <!--
-<h1>Personal Inflation Calculator</h1>
-<h2>Inspired by Vivek Bajaj</h2> -->
-
   <clr-alert size="sm" [clrAlertAppLevel]="true">
     <clr-alert-item>
       Inspired by Vivek Bajaj
@@ -28,7 +15,22 @@
 
   <div class="maindiv m-2">
     <p class="text"><strong>Current Inflation (CPI): </strong> {{cpi}} %</p>
-    <p class="text"><i>(Updated November 2021)</i></p>
+    <p class="text"><i>(Updated {{lastUpdate}})</i></p>
+
+    <div class="btn-group">
+      <div class="radio btn">
+        <input (change)="handleTypeChange($event)" type="radio" name="type" id="rural" />
+        <label for="rural">Rural</label>
+      </div>
+      <div class="radio btn">
+        <input (change)="handleTypeChange($event)" type="radio" name="type" id="urban" />
+        <label for="urban">Urban</label>
+      </div>
+      <div class="radio btn">
+        <input (change)="handleTypeChange($event)" type="radio" name="type" id="combined" checked />
+        <label for="combined">Combined</label>
+      </div>
+    </div>
 
     <table class="table">
       <thead>
@@ -45,8 +47,11 @@
         <ng-container *ngFor="let row of rows">
           <tr>
             <td>{{row.category}}</td>
-            <td><input clrInput placeholder="Enter some amount" name="input" type="number" [min]="0"
-                [(ngModel)]="row.amount" (keyup)="update($event)" />
+            <td>
+              <div class="align-center">
+                <input clrInput placeholder="Enter some amount" name="input" type="number" [min]="0"
+                  [(ngModel)]="row.amount" (keyup)="update($event)" />
+              </div>
             </td>
             <td>{{( row.amount / totalBudget) * 100 | number : '1.2-2' }}%</td>
             <td>{{row.inflation | number : '1.2-2' }}%</td>
@@ -55,16 +60,22 @@
         </ng-container>
 
         <tr>
-          <td>Total</td>
-          <td>{{totalBudget | currency : 'INR' }}
-          </td>
-          <td>100%</td>
-          <td>{{cpi | number : '1.2-2' }}%</td>
-          <td>{{personalInflation | number : '1.2-2' }}%</td>
+          <th>Total</th>
+          <th>{{totalBudget | currency : 'INR' }}
+          </th>
+          <th>100%</th>
+          <th>{{cpi | number : '1.2-2' }}%</th>
+          <th>{{personalInflation | number : '1.2-2' }}%</th>
         </tr>
       </tbody>
     </table>
 
+    <p class="min-text"><i>(Source: <a href="http://{{source}})">{{source}})</a></i></p>
+
+  </div>
+
+  <div class="footer">
+    <p class="text footer-text">Created with 💖 by <a href="http://twitter.com/mtwn105"><b>Amit Wani</b></a> </p>
   </div>
 
 </div>

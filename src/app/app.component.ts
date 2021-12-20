@@ -9,14 +9,13 @@ export class AppComponent implements OnInit {
   title = 'frontend';
 
   cpi = 4.91;
-
   categories: string[] = [];
-
   rows: any[] = [];
-
   totalBudget = 0;
-
   personalInflation = 0;
+  source;
+  lastUpdate;
+  type = 'combined';
 
   ngOnInit() {
 
@@ -49,10 +48,16 @@ export class AppComponent implements OnInit {
     for (const category of this.categories) {
       this.rows.push({
         category: category,
-        amount: 0,
+        amount: null,
+        ruralInflation: 1,
+        urbanInflation: 1,
         inflation: 1,
       });
     }
+
+    this.source = 'https://pib.gov.in/PressReleasePage.aspx?PRID=1780967';
+    this.lastUpdate = 'November 2021';
+
   }
 
   update(event: any) {
@@ -64,6 +69,11 @@ export class AppComponent implements OnInit {
       this.totalBudget += amount;
     }
     console.log(this.totalBudget);
+  }
+
+  handleTypeChange(event: any) {
+    var target = event.target;
+    this.type = target.id;
   }
 
 }
