@@ -1,0 +1,70 @@
+<div class="main-container">
+  <header class="header-6">
+    <div class="branding">
+      <a href="javascript://" class="nav-link">
+        <cds-icon shape="calculator" solid></cds-icon>
+        <span class="title">Personal Inflation Calculator</span>
+      </a>
+    </div>
+    <!-- <div class="header-nav">
+    <a href="javascript://" class="active nav-link nav-text">Dashboard</a>
+    <a href="javascript://" class="nav-link nav-text">Interactive Analytics</a>
+  </div>
+  <div class="header-actions">
+    <a href="javascript://" class="nav-link nav-icon" aria-label="settings">
+      <cds-icon shape="cog"></cds-icon>
+    </a>
+  </div> -->
+  </header>
+  <!--
+<h1>Personal Inflation Calculator</h1>
+<h2>Inspired by Vivek Bajaj</h2> -->
+
+  <clr-alert size="sm" [clrAlertAppLevel]="true">
+    <clr-alert-item>
+      Inspired by Vivek Bajaj
+    </clr-alert-item>
+  </clr-alert>
+
+  <div class="maindiv m-2">
+    <p class="text"><strong>Current Inflation (CPI): </strong> {{cpi}} %</p>
+    <p class="text"><i>(Updated November 2021)</i></p>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Amount </th>
+          <th>% of Total Budget </th>
+          <th>Current Inflation Rate</th>
+          <th>Personal Inflation Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <ng-container *ngFor="let row of rows">
+          <tr>
+            <td>{{row.category}}</td>
+            <td><input clrInput placeholder="Enter some amount" name="input" type="number" [min]="0"
+                [(ngModel)]="row.amount" (keyup)="update($event)" />
+            </td>
+            <td>{{( row.amount / totalBudget) * 100 | number : '1.2-2' }}%</td>
+            <td>{{row.inflation | number : '1.2-2' }}%</td>
+            <td>{{ (row.inflation * (( row.amount / totalBudget))) | number : '1.2-2' }}%</td>
+          </tr>
+        </ng-container>
+
+        <tr>
+          <td>Total</td>
+          <td>{{totalBudget | currency : 'INR' }}
+          </td>
+          <td>100%</td>
+          <td>{{cpi | number : '1.2-2' }}%</td>
+          <td>{{personalInflation | number : '1.2-2' }}%</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
