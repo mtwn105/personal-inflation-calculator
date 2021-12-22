@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { NavigationEnd, Router } from '@angular/router';
+import { GoogleAnalyticsService } from './google-analytics.service';
+declare let gtag: Function;
 
 @Component({
   selector: 'app-root',
@@ -8,6 +11,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class AppComponent implements OnInit {
   title = 'frontend';
+  // declare let gtag: Function;
 
   cpi = 4.91;
   categories: string[] = [];
@@ -17,18 +21,32 @@ export class AppComponent implements OnInit {
   source;
   lastUpdate;
   type = 'combined';
+  baseurl = "http://localhost:3000/"
+  // baseurl = "/"
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, public router: Router, private googleAnalyticsService: GoogleAnalyticsService) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        gtag('config', 'G-5YQN8PSZ0F',
+          {
+            'page_path': event.urlAfterRedirects
+          }
+        );
+      }
+    });
+  }
+
 
   ngOnInit() {
 
-    this.http.get('/api/v1/info').subscribe((data: any) => {
+    this.http.get(this.baseurl + 'api/v1/info').subscribe((data: any) => {
       this.cpi = data[0].cpi;
       this.lastUpdate = data[0].lastUpdated;
       this.source = data[0].source;
     });
 
-    this.http.get('/api/v1/inflation').subscribe((data: any) => {
+    this.http.get(this.baseurl + 'api/v1/inflation').subscribe((data: any) => {
       for (const category of data) {
         this.rows.push({
           category: category.category,
@@ -40,6 +58,8 @@ export class AppComponent implements OnInit {
       }
     });
 
+    this.googleAnalyticsService.eventEmitter('dataLoad', 'general', '');
+
   }
 
   update(event: any) {
@@ -48,12 +68,15 @@ export class AppComponent implements OnInit {
       let amount: any = row.amount;
       this.totalBudget += amount;
     }
+    this.googleAnalyticsService.eventEmitter('amountChange', 'interaction', '');
   }
 
   handleTypeChange(event: any) {
     var target = event.target;
     this.type = target.id;
     this.update(null);
+    this.googleAnalyticsService.eventEmitter('inflationTypeChange', 'interaction', this.type);
   }
 
 }
+

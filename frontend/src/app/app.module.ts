@@ -1,3 +1,4 @@
+import { GoogleAnalyticsService } from './google-analytics.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -24,7 +25,7 @@ ClarityIcons.addIcons(userIcon);
     BrowserAnimationsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

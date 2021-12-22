@@ -56,7 +56,8 @@
             <td>{{( row.amount / totalBudget) * 100 | number : '1.2-2' }}%</td>
             <td>{{(type == 'rural' ? row.ruralInflation : type == 'urban'? row.urbanInflation : row.combinedInflation) |
               number : '1.2-2' }}%</td>
-            <td>{{ ((type == 'rural' ? row.ruralInflation : type == 'urban'? row.urbanInflation : row.combinedInflation) * ((
+            <td>{{ ((type == 'rural' ? row.ruralInflation : type == 'urban'? row.urbanInflation : row.combinedInflation)
+              * ((
               row.amount / totalBudget))) | number : '1.2-2' }}%</td>
           </tr>
         </ng-container>
@@ -74,7 +75,14 @@
 
     <p class="min-text"><i>(Source: <a href="http://{{source}})">{{source}})</a></i></p>
 
+    <form>
+      <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_IaYkkus4X7OLbw"
+        async> </script>
+    </form>
+
   </div>
+
+
 
   <div class="footer">
     <p class="text footer-text">Created with 💖 by <a href="http://twitter.com/mtwn105"><b>Amit Wani</b></a> </p>
