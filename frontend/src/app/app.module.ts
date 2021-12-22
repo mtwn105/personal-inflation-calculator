@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import '@cds/core/icon/register.js';
 import { ClarityIcons, userIcon } from '@cds/core/icon';
+import { HttpClientModule } from '@angular/common/http';
 
 ClarityIcons.addIcons(userIcon);
 @NgModule({
@@ -20,7 +21,8 @@ ClarityIcons.addIcons(userIcon);
     BrowserModule,
     AppRoutingModule,
     ClarityModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

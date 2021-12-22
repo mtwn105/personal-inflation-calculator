@@ -54,8 +54,10 @@
               </div>
             </td>
             <td>{{( row.amount / totalBudget) * 100 | number : '1.2-2' }}%</td>
-            <td>{{row.inflation | number : '1.2-2' }}%</td>
-            <td>{{ (row.inflation * (( row.amount / totalBudget))) | number : '1.2-2' }}%</td>
+            <td>{{(type == 'rural' ? row.ruralInflation : type == 'urban'? row.urbanInflation : row.combinedInflation) |
+              number : '1.2-2' }}%</td>
+            <td>{{ ((type == 'rural' ? row.ruralInflation : type == 'urban'? row.urbanInflation : row.combinedInflation) * ((
+              row.amount / totalBudget))) | number : '1.2-2' }}%</td>
           </tr>
         </ng-container>
 

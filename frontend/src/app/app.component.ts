@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
@@ -17,63 +18,42 @@ export class AppComponent implements OnInit {
   lastUpdate;
   type = 'combined';
 
+  constructor(private http: HttpClient) { }
+
   ngOnInit() {
 
-    this.categories = [
-      'Cereals and products',
-      'Meat and fish',
-      'Egg',
-      'Milk and products',
-      'Oils and fats',
-      'Fruits',
-      'Vegetables',
-      'Pulses and products',
-      'Sugar and Confectionery',
-      'Spices',
-      'Non-alcoholic beverages',
-      'Prepared meals, snacks, sweets etc.',
-      'Pan, tobacco and intoxicants',
-      'Clothing',
-      'Footwear',
-      'Housing',
-      'Fuel and light',
-      'Household goods and services',
-      'Health',
-      'Transport and communication',
-      'Recreation and amusement',
-      'Education',
-      'Personal care and effects',
-    ];
+    this.http.get('/api/v1/info').subscribe((data: any) => {
+      this.cpi = data[0].cpi;
+      this.lastUpdate = data[0].lastUpdated;
+      this.source = data[0].source;
+    });
 
-    for (const category of this.categories) {
-      this.rows.push({
-        category: category,
-        amount: null,
-        ruralInflation: 1,
-        urbanInflation: 1,
-        inflation: 1,
-      });
-    }
-
-    this.source = 'https://pib.gov.in/PressReleasePage.aspx?PRID=1780967';
-    this.lastUpdate = 'November 2021';
+    this.http.get('/api/v1/inflation').subscribe((data: any) => {
+      for (const category of data) {
+        this.rows.push({
+          category: category.category,
+          amount: null,
+          ruralInflation: category.ruralInflation,
+          urbanInflation: category.urbanInflation,
+          combinedInflation: category.combinedInflation,
+        });
+      }
+    });
 
   }
 
   update(event: any) {
-
-    console.log(event.target.value)
     this.totalBudget = 0;
     for (let row of this.rows) {
       let amount: any = row.amount;
       this.totalBudget += amount;
     }
-    console.log(this.totalBudget);
   }
 
   handleTypeChange(event: any) {
     var target = event.target;
     this.type = target.id;
+    this.update(null);
   }
 
 }
