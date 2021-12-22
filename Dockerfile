@@ -10,6 +10,7 @@ RUN npm install
 
 COPY /frontend/. .
 
+RUN export NODE_OPTIONS=--openssl-legacy-provider
 RUN ng build
 
 WORKDIR ../backend
