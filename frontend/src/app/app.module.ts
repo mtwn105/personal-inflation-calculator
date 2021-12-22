@@ -10,11 +10,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import '@cds/core/icon/register.js';
 import { ClarityIcons, userIcon } from '@cds/core/icon';
 import { HttpClientModule } from '@angular/common/http';
+import { FooterComponent } from './footer/footer.component';
 
 ClarityIcons.addIcons(userIcon);
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FooterComponent
   ],
   imports: [
     FormsModule,

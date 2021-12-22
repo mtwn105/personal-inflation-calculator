@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { NavigationEnd, Router } from '@angular/router';
 import { GoogleAnalyticsService } from './google-analytics.service';
@@ -9,7 +9,7 @@ declare let gtag: Function;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   title = 'frontend';
   // declare let gtag: Function;
 
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   // baseurl = "/"
 
 
-  constructor(private http: HttpClient, public router: Router, private googleAnalyticsService: GoogleAnalyticsService) {
+  constructor(private http: HttpClient, public router: Router, private googleAnalyticsService: GoogleAnalyticsService, private cDRef: ChangeDetectorRef) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         gtag('config', 'G-5YQN8PSZ0F',
@@ -62,6 +62,10 @@ export class AppComponent implements OnInit {
 
   }
 
+  ngAfterViewInit(): void {
+    this.loadScript();
+  }
+
   update(event: any) {
     this.totalBudget = 0;
     for (let row of this.rows) {
@@ -76,6 +80,18 @@ export class AppComponent implements OnInit {
     this.type = target.id;
     this.update(null);
     this.googleAnalyticsService.eventEmitter('inflationTypeChange', 'interaction', this.type);
+  }
+
+  public loadScript() {
+    this.cDRef.detectChanges();
+    console.log('preparing to load...')
+    let form = document.createElement('form');
+    let node = document.createElement('script');
+    node.src = 'https://checkout.razorpay.com/v1/payment-button.js';
+    node.setAttribute('data-payment_button_id', "pl_IaYkkus4X7OLbw");
+    node.async = true;
+    form.appendChild(node);
+    document.getElementsByClassName('payment')[0].appendChild(form);
   }
 
 }
