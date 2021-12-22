@@ -4,6 +4,10 @@ WORKDIR /app
 
 RUN mkdir frontend
 
+RUN ls -lart
+
+RUN pwd
+
 COPY /frontend/package.json ./frontend
 COPY /frontend/package-lock.json ./frontend
 
