@@ -15,6 +15,8 @@ RUN ng build
 
 RUN pwd
 
+RUN ls -lart
+
 WORKDIR ../backend
 
 COPY /backend/package.json .
