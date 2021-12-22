@@ -21,8 +21,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   source;
   lastUpdate;
   type = 'combined';
-  baseurl = "http://localhost:3000/"
-  // baseurl = "/"
+  // baseurl = "http://localhost:3000/"
+  isMobile: boolean;
+  openModal: boolean;
+  baseurl = "/"
 
 
   constructor(private http: HttpClient, public router: Router, private googleAnalyticsService: GoogleAnalyticsService, private cDRef: ChangeDetectorRef) {
@@ -39,6 +41,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
+
+
 
     this.http.get(this.baseurl + 'api/v1/info').subscribe((data: any) => {
       this.cpi = data[0].cpi;
@@ -92,6 +96,20 @@ export class AppComponent implements OnInit, AfterViewInit {
     node.async = true;
     form.appendChild(node);
     document.getElementsByClassName('payment')[0].appendChild(form);
+  }
+
+  checkDevice() {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      // true for mobile device
+      this.isMobile = true;
+    } else {
+      // false for not mobile device
+      this.isMobile = false;
+    }
+  }
+
+  toggleModal() {
+    this.openModal = true;
   }
 
 }

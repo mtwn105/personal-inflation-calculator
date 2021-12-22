@@ -13,9 +13,47 @@
     </clr-alert-item>
   </clr-alert>
 
+  <ng-container *ngIf="isMobile">
+    <clr-alert size="sm" [clrAlertAppLevel]="true">
+      <clr-alert-item>
+        App best viewed on Desktop
+      </clr-alert-item>
+    </clr-alert>
+  </ng-container>
+
   <div class="maindiv m-2">
-    <p class="text"><strong>Current Inflation (CPI): </strong> {{cpi}} %</p>
-    <p class="text"><i>(Updated {{lastUpdate}})</i></p>
+
+    <clr-modal [(clrModalOpen)]="openModal">
+      <h3 class="modal-title">Help</h3>
+      <div class="modal-body">
+        <p>Personal Inflation Calculator is a tool to calculate personal inflation according to the different expense
+          among different categories. This app is inspired from a video in 'Learn2Invest' series on YouTube by Vivek
+          Bajaj. </p>
+        <p>Personal Inflation concept tells us how every individual has his/her own inflation rate depending on the
+          amount spent across different categories. </p>
+        <p>Enter different expenses among various categories. Inflation for each category is sourced from RBI and is
+          released every month. </p>
+        <p></p>
+        <p></p>
+        <p>Thank you for using the app. To Support please click Support Me button!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="openModal = false">Ok</button>
+      </div>
+    </clr-modal>
+
+    <div class="clr-row clr-justify-content-between">
+      <div class="clr-col-sm-auto">
+        <p class="text"><strong>Current Inflation (CPI): </strong> {{cpi}} %</p>
+        <p class="text"><i>(Updated {{lastUpdate}})</i></p>
+
+      </div>
+      <div class="clr-col-sm-auto">
+        <button class="btn btn-primary" (click)="toggleModal()">Help</button>
+      </div>
+    </div>
+
+
 
     <div class="btn-group">
       <div class="radio btn">
