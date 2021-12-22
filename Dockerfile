@@ -2,13 +2,19 @@ FROM node:14.15.5-alpine
 
 WORKDIR /app
 
+RUN mkdir frontend
+
 COPY /frontend/package.json ./frontend
 COPY /frontend/package-lock.json ./frontend
+
+RUN cd /frontend
 
 RUN npm install -g @angular/cli@12.0.1
 RUN npm install
 
-COPY /frontend/. ./frontend
+RUN cd ..
+
+COPY /frontend/. /frontend/.
 
 RUN export NODE_OPTIONS=--openssl-legacy-provider
 RUN cd /frontend
@@ -20,16 +26,16 @@ RUN ls -lart
 
 RUN cd ..
 
-COPY /backend/package.json ./backend
-COPY /backend/package-lock.json ./backend
+COPY /backend/package.json /backend
+COPY /backend/package-lock.json /backend
 
 RUN npm install
 
-COPY /backend/. ./backend
+COPY /backend/. /backend/.
 
 RUN pwd
 
-COPY /frontend/dist/frontend ./backend/public/frontend
+COPY /frontend/dist/frontend /backend/public/frontend/.
 
 EXPOSE 3000
 
