@@ -26,6 +26,8 @@ RUN ls -lart
 
 RUN cd ..
 
+RUN mkdir backend
+
 COPY /backend/package.json /backend
 COPY /backend/package-lock.json /backend
 
