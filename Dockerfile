@@ -1,47 +1,49 @@
 FROM node:14.15.5-alpine
 
-WORKDIR /app
+WORKDIR /frontend
 
-RUN mkdir frontend
+# RUN mkdir frontend
 
-RUN ls -lart
+# RUN ls -lart
 
-RUN pwd
+# RUN pwd
 
-COPY /frontend/package.json ./frontend
-COPY /frontend/package-lock.json ./frontend
+COPY /frontend/package.json .
+COPY /frontend/package-lock.json .
 
-RUN cd /frontend
+# RUN cd /frontend
 
 RUN npm install -g @angular/cli@12.0.1
 RUN npm install
 
-RUN cd ..
+# RUN cd ..
 
-COPY /frontend/. /frontend/.
+COPY /frontend/. .
 
 RUN export NODE_OPTIONS=--openssl-legacy-provider
-RUN cd /frontend
+# RUN cd /frontend
 RUN ng build
 
-RUN pwd
+# RUN pwd
 
-RUN ls -lart
+# RUN ls -lart
 
-RUN cd ..
+# RUN cd ..
 
-RUN mkdir backend
+# RUN mkdir backend
 
-COPY /backend/package.json /backend
-COPY /backend/package-lock.json /backend
+WORKDIR /backend
+
+COPY /backend/package.json .
+COPY /backend/package-lock.json .
 
 RUN npm install
 
-COPY /backend/. /backend/.
+COPY /backend/. .
 
 RUN pwd
 
-COPY /frontend/dist/frontend /backend/public/frontend/.
+RUN cp -R /frontend/dist/frontend /backend/public/frontend/.
 
 EXPOSE 3000
 
