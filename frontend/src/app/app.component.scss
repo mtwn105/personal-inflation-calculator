@@ -1,0 +1,32 @@
+.maindiv {
+  margin: 1rem;
+}
+
+.text {
+  font-size: 0.7rem;
+  margin-top: 0;
+}
+
+.min-text {
+  font-size: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.footer {
+  background-color: #00567a;
+  padding: 1rem 2rem;
+  .footer-text {
+    text-align: center;
+    color: #fff;
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+}
+
+.align-center {
+  display: flex;
+  justify-content: center;
+}
