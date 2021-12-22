@@ -35,6 +35,7 @@ app.get("/api/v1/inflation", async (req, res, next) => {
   }
 });
 
+app.use("/", express.static("public/frontend"));
 
 // Error Handler
 notFound = (req, res, next) => {
