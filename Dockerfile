@@ -43,7 +43,7 @@ COPY /backend/. .
 
 RUN pwd
 
-RUN cp -R /frontend/dist/frontend /backend/public/frontend/.
+RUN cp -R /frontend/dist/frontend /backend/public/.
 
 EXPOSE 3000
 
