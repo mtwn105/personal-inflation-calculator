@@ -58,6 +58,7 @@ export class AppComponent implements OnInit, AfterViewInit {
           ruralInflation: category.ruralInflation,
           urbanInflation: category.urbanInflation,
           combinedInflation: category.combinedInflation,
+          imageUrl: category.imageUrl
         });
       }
     });

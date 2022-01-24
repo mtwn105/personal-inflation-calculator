@@ -2,7 +2,7 @@
   <header class="header-6">
     <div class="branding">
       <a href="javascript://" class="nav-link">
-        <cds-icon shape="calculator" solid></cds-icon>
+        <img height="30" width="30" style="margin-right: 10px;" src="../assets/rupee.png" />
         <span class="title">Personal Inflation Calculator</span>
       </a>
     </div>
@@ -27,7 +27,9 @@
       <h3 class="modal-title">Help</h3>
       <div class="modal-body">
         <p>Personal Inflation Calculator is a tool to calculate personal inflation according to the different expense
-          among different categories. This app is inspired from a video in 'Learn2Invest' series on YouTube by Vivek
+          among different categories. This app is inspired from <a
+            href="https://www.youtube.com/watch?v=wbJGvxkRlGM"><strong>this</strong></a> video in 'Learn2Invest' series
+          on YouTube by Vivek
           Bajaj. </p>
         <p>Personal Inflation concept tells us how every individual has his/her own inflation rate depending on the
           amount spent across different categories. </p>
@@ -73,6 +75,7 @@
     <table class="table">
       <thead>
         <tr>
+          <th></th>
           <th>Category</th>
           <th>Amount </th>
           <th>% of Total Budget </th>
@@ -84,7 +87,13 @@
 
         <ng-container *ngFor="let row of rows">
           <tr>
-            <td>{{row.category}}</td>
+            <td><img height="30" width="30" style="margin-right: 10px;" [src]="row.imageUrl" /></td>
+            <td>
+
+
+
+              <strong>{{row.category}}</strong>
+            </td>
             <td>
               <div class="align-center">
                 <input clrInput placeholder="Enter some amount" name="input" type="number" [min]="0"
@@ -111,7 +120,7 @@
       </tbody>
     </table>
 
-    <p class="min-text"><i>(Source: <a href="http://{{source}})">{{source}})</a></i></p>
+    <p class="min-text"><i>(Source: <a href="{{source}}">{{source}})</a></i></p>
 
     <div class="payment"></div>
 

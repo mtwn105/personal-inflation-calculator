@@ -15,7 +15,8 @@ const inflationSchema = new Schema({
   category: { type: String },
   ruralInflation: { type: Number },
   urbanInflation: { type: Number },
-  combinedInflation: { type: Number }
+  combinedInflation: { type: Number },
+  imageUrl: { type: String },
 });
 
 const Inflation = mongoose.model("Inflation", inflationSchema, "inflation");
