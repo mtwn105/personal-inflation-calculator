@@ -162,3 +162,6 @@
 /backend/Blog
 /backend/About
 /backend/Loading complete
+
+# frontend static files
+/backend/public/

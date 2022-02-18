@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { NavigationEnd, Router } from '@angular/router';
@@ -24,7 +25,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   // baseurl = "http://localhost:3000/"
   isMobile: boolean;
   openModal: boolean;
-  baseurl = "/"
+  baseurl = environment.baseurl;
 
 
   constructor(private http: HttpClient, public router: Router, private googleAnalyticsService: GoogleAnalyticsService, private cDRef: ChangeDetectorRef) {
