@@ -26,6 +26,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   isMobile: boolean;
   openModal: boolean;
   baseurl = environment.baseurl;
+  totalRuralPersonalInflation = 0;
+  totalUrbanPersonalInflation = 0;
+  totalCombinedPersonalInflation = 0;
 
 
   constructor(private http: HttpClient, public router: Router, private googleAnalyticsService: GoogleAnalyticsService, private cDRef: ChangeDetectorRef) {
@@ -59,7 +62,10 @@ export class AppComponent implements OnInit, AfterViewInit {
           ruralInflation: category.ruralInflation,
           urbanInflation: category.urbanInflation,
           combinedInflation: category.combinedInflation,
-          imageUrl: category.imageUrl
+          imageUrl: category.imageUrl,
+          ruralPersonalInflation: 0,
+          urbanPersonalInflation: 0,
+          combinedPersonalInflation: 0,
         });
       }
     });
@@ -74,10 +80,22 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   update(event: any) {
     this.totalBudget = 0;
+    this.totalRuralPersonalInflation = 0;
+    this.totalUrbanPersonalInflation = 0;
+    this.totalCombinedPersonalInflation = 0;
     for (let row of this.rows) {
       let amount: any = row.amount;
       this.totalBudget += amount;
+      row.ruralPersonalInflation = row.ruralInflation * (row.amount / this.totalBudget)
+      row.urbanPersonalInflation = row.urbanInflation * (row.amount / this.totalBudget)
+      row.combinedPersonalInflation = row.combinedInflation * (row.amount / this.totalBudget)
+      this.totalRuralPersonalInflation += row.ruralPersonalInflation;
+      this.totalUrbanPersonalInflation += row.urbanPersonalInflation;
+      this.totalCombinedPersonalInflation += row.combinedPersonalInflation;
     }
+
+
+
     this.googleAnalyticsService.eventEmitter('amountChange', 'interaction', '');
   }
 

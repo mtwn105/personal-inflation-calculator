@@ -103,19 +103,20 @@
             <td>{{( row.amount / totalBudget) * 100 | number : '1.2-2' }}%</td>
             <td>{{(type == 'rural' ? row.ruralInflation : type == 'urban'? row.urbanInflation : row.combinedInflation) |
               number : '1.2-2' }}%</td>
-            <td>{{ ((type == 'rural' ? row.ruralInflation : type == 'urban'? row.urbanInflation : row.combinedInflation)
-              * ((
-              row.amount / totalBudget))) | number : '1.2-2' }}%</td>
+            <td>{{ ((type == 'rural' ? row.ruralPersonalInflation : type == 'urban'? row.urbanPersonalInflation :
+              row.combinedPersonalInflation)) | number : '1.2-2' }}%</td>
           </tr>
         </ng-container>
 
         <tr>
+          <th></th>
           <th>Total</th>
           <th>{{totalBudget | currency : 'INR' }}
           </th>
           <th>100%</th>
           <th>{{cpi | number : '1.2-2' }}%</th>
-          <th>{{personalInflation | number : '1.2-2' }}%</th>
+          <th>{{((type == 'rural' ? totalRuralPersonalInflation : type == 'urban'? totalUrbanPersonalInflation
+            :totalCombinedPersonalInflation)) | number : '1.2-2' }}%</th>
         </tr>
       </tbody>
     </table>
