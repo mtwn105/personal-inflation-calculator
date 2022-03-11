@@ -84,11 +84,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.totalUrbanPersonalInflation = 0;
     this.totalCombinedPersonalInflation = 0;
     for (let row of this.rows) {
-      let amount: any = row.amount;
+      let amount: any = !!row.amount && row.amount > 0 ? row.amount : 0;
       this.totalBudget += amount;
-      row.ruralPersonalInflation = row.ruralInflation * (row.amount / this.totalBudget)
-      row.urbanPersonalInflation = row.urbanInflation * (row.amount / this.totalBudget)
-      row.combinedPersonalInflation = row.combinedInflation * (row.amount / this.totalBudget)
+      row.ruralPersonalInflation = row.ruralInflation * (amount / this.totalBudget)
+      row.urbanPersonalInflation = row.urbanInflation * (amount / this.totalBudget)
+      row.combinedPersonalInflation = row.combinedInflation * (amount / this.totalBudget)
       this.totalRuralPersonalInflation += row.ruralPersonalInflation;
       this.totalUrbanPersonalInflation += row.urbanPersonalInflation;
       this.totalCombinedPersonalInflation += row.combinedPersonalInflation;
